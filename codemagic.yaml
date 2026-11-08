@@ -44,7 +44,7 @@ workflows:
             build
       - name: Package iOS Simulator app
         script: |
-          APP_PATH="build/ios/DerivedData/Build/Products/Debug-iphonesimulator/iosApp.app"
+          APP_PATH="$CM_BUILD_DIR/build/ios/DerivedData/Build/Products/Debug-iphonesimulator/VanGO.app"
           if [ ! -d "$APP_PATH" ]; then
             echo "Expected iOS Simulator app not found: $APP_PATH" >&2
             exit 1
