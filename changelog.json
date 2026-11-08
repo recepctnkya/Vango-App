@@ -1,0 +1,25 @@
+[
+    {
+        "version":  "v0.91-0001",
+        "module":  "platform",
+        "date":  "2026-11-08",
+        "changes":  [
+                        "Bump macro : v0.90-0001 -\u003e v0.91-0001",
+                        "v0.91-001 kaynak agaci: Canvas hero, SIM mevsim/hava, balıkci, guclu kar/yagmur; build yok"
+                    ]
+    },
+    {
+        "value":  [
+                      {
+                          "version":  "v0.90-0001",
+                          "module":  "platform",
+                          "date":  "2026-11-07",
+                          "changes":  [
+                                          "Makro/mikro sürüm yönetimi eklendi (VERSION.json + changelog + Sync/Bump)",
+                                          "Android versionName/versionCode ve iOS Info.plist Sync ile hizalanır"
+                                      ]
+                      }
+                  ],
+        "Count":  1
+    }
+]

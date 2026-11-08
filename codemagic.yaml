@@ -1,0 +1,47 @@
+workflows:
+  android-debug:
+    name: Android debug APK
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      java: 17
+    scripts:
+      - name: Build debug APK
+        script: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon :composeApp:assembleDebug -x syncHexnetVersion
+    artifacts:
+      - composeApp/build/outputs/apk/debug/*.apk
+
+  ios-simulator:
+    name: iOS Simulator app
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      java: 17
+    scripts:
+      - name: Make Gradle wrapper executable
+        script: chmod +x ./gradlew
+      - name: Build iOS Simulator app
+        script: |
+          xcodebuild \
+            -project iosApp/iosApp.xcodeproj \
+            -scheme iosApp \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$CM_BUILD_DIR/build/ios/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+      - name: Package iOS Simulator app
+        script: |
+          APP_PATH="build/ios/DerivedData/Build/Products/Debug-iphonesimulator/iosApp.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Expected iOS Simulator app not found: $APP_PATH" >&2
+            exit 1
+          fi
+          mkdir -p build/ios
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" build/ios/VanGO-iOS-Simulator.zip
+    artifacts:
+      - build/ios/VanGO-iOS-Simulator.zip

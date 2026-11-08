@@ -1,0 +1,24 @@
+{
+    "product":  "vango-app",
+    "name":  "VanGO Tablet / Telefon",
+    "line":  "v0.91-001",
+    "makro":  "v0.91",
+    "mikro":  "v0.91-0001",
+    "semver":  "0.91.1",
+    "versionName":  "0.91-001",
+    "versionCode":  91001,
+    "build_date":  "2026-11-08",
+    "build_name":  "VanGO-v0.91-001",
+    "targets":  {
+                    "android_tablet":  "v0.91-0001",
+                    "android_phone":  "v0.91-0001",
+                    "ios":  "v0.91-0001"
+                },
+    "modules":  {
+                    "ble":  "v0.91-0001",
+                    "mqtt":  "v0.91-0001",
+                    "ui":  "v0.91-0001",
+                    "panel":  "v0.91-0001"
+                },
+    "notes":  "v0.91-001 kaynak agaci: Canvas hero, SIM mevsim/hava, balıkci, guclu kar/yagmur; build yok"
+}
