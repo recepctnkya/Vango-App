@@ -31,6 +31,8 @@ gerekir.
 
 Not: iOS'taki BLE bağlantısı ve QR tarayıcı şu an yer tutucudur; bu derleme
 iOS özelliklerinin Android ile eşdeğer olduğunu göstermez.
+HTTP istemcisi iOS'ta platformun `NSURLSession` tabanlı Ktor Darwin motorunu
+kullanır.
 
 Android iş akışı depodaki sürüm değerlerini kullanır ve bu depoda bulunmayan
 harici PowerShell modülüne bağlı `syncHexnetVersion` görevini atlar.

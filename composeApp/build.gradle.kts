@@ -51,7 +51,7 @@ kotlin {
             implementation("io.ktor:ktor-client-okhttp:2.3.7")
         }
         iosMain.dependencies {
-            implementation("io.ktor:ktor-client-cio:2.3.7")
+            implementation("io.ktor:ktor-client-darwin:2.3.7")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -180,4 +180,3 @@ afterEvaluate {
         }
     }
 }
-
