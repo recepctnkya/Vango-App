@@ -2,8 +2,8 @@ package com.hextech.vango
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import platform.UIKit.UIAccessibility
+import platform.UIKit.UIAccessibilityIsReduceMotionEnabled
 
 @Composable
 actual fun rememberPrefersReducedMotion(): Boolean =
-    remember { UIAccessibility.isReduceMotionEnabled() }
+    remember { UIAccessibilityIsReduceMotionEnabled() }

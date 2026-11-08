@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import kotlin.concurrent.Volatile
 
 /**
  * Tablet üzerindeki canlı tema seçimini, uzaktan giriş sonrası 5 sn'lik sunucu

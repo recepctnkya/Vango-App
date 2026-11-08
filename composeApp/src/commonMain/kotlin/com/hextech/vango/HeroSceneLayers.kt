@@ -1,5 +1,7 @@
 package com.hextech.vango
 
+import kotlin.concurrent.Volatile
+
 /**
  * Dev-only layer toggles for hero scene previews / debugging.
  * Not exposed in the user-facing UI — change here or from Preview composables.

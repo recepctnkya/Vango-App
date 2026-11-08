@@ -108,7 +108,8 @@ fun StoredManualDevice.toBleDevice(): BleDevice = BleDevice(name, mac, rssi = nu
 fun mergeManualDevicesIntoList(existing: List<BleDevice>): List<BleDevice> {
     val byMac = existing.associateBy { it.mac.uppercase() }.toMutableMap()
     ManualPairedDeviceStore.getAll().forEach { stored ->
-        byMac.putIfAbsent(stored.mac.uppercase(), stored.toBleDevice())
+        val mac = stored.mac.uppercase()
+        if (mac !in byMac) byMac[mac] = stored.toBleDevice()
     }
     return byMac.values.sortedBy { it.name }
 }

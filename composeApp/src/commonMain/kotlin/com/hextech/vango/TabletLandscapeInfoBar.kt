@@ -48,6 +48,7 @@ private fun weekdayString(day: DayOfWeek): String {
         DayOfWeek.FRIDAY -> Res.string.weekday_friday
         DayOfWeek.SATURDAY -> Res.string.weekday_saturday
         DayOfWeek.SUNDAY -> Res.string.weekday_sunday
+        else -> error("Unsupported day of week: $day")
     }
     return stringResource(res)
 }

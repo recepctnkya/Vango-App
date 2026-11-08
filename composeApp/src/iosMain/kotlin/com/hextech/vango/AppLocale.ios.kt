@@ -3,12 +3,12 @@ package com.hextech.vango
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.staticCompositionLocalOf
-import platform.Foundation.NSLocale
+import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
 
 actual object LocalAppLocale {
     private const val LANG_KEY = "AppleLanguages"
-    private val defaultLang = NSLocale.preferredLanguages.first() as String
+    private val defaultLang = NSBundle.mainBundle.preferredLocalizations.firstOrNull() as? String ?: "en"
     private val LocalLang = staticCompositionLocalOf { defaultLang }
 
     actual val current: String

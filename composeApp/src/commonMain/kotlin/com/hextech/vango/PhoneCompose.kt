@@ -561,7 +561,7 @@ internal fun ColorPaletteWheelPanel(
                                     val dy = pos.y - c.y
                                     // Same convention as knob (cos/sin on Canvas with y+ down): atan2(dy, dx).
                                     val angleDeg =
-                                        Math.toDegrees(atan2(dy.toDouble(), dx.toDouble())).toFloat()
+                                        (atan2(dy.toDouble(), dx.toDouble()) * 180.0 / PI).toFloat()
                                     hue = (angleDeg + 360f) % 360f
                                     // Ring is drawn at full saturation; keep S=1 so knob hue matches UYGULA preview
                                     saturation = 1f
@@ -594,7 +594,7 @@ internal fun ColorPaletteWheelPanel(
                         size = Size(outerR * 2f, outerR * 2f),
                         style = Stroke(width = strokeW)
                     )
-                    val rad = Math.toRadians(hue.toDouble())
+                    val rad = hue.toDouble() * PI / 180.0
                     val ix = c.x + trackMidR * cos(rad).toFloat()
                     val iy = c.y + trackMidR * sin(rad).toFloat()
                     drawCircle(Color.White, 16f, Offset(ix, iy))
@@ -617,7 +617,7 @@ internal fun ColorPaletteWheelPanel(
                         size = Size(outerR * 2f, outerR * 2f),
                         style = Stroke(width = strokeW)
                     )
-                    val rad = Math.toRadians(hue.toDouble())
+                    val rad = hue.toDouble() * PI / 180.0
                     val ix = c.x + trackMidR * cos(rad).toFloat()
                     val iy = c.y + trackMidR * sin(rad).toFloat()
                     drawCircle(Color(0xFFE0E0E0), 16f, Offset(ix, iy))

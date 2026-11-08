@@ -1220,14 +1220,14 @@ private fun ingestBleChunk(chunk: String): List<String> {
     if (out.isNotEmpty()) {
         val lastEnd = bleRxBuffer.lastIndexOf('}')
         if (lastEnd >= 0) {
-            bleRxBuffer.delete(0, lastEnd + 1)
+            bleRxBuffer.deleteRange(0, lastEnd + 1)
         }
     }
 
     // Guard against indefinite growth on malformed streams.
     if (bleRxBuffer.length > 16384) {
         val keepFrom = bleRxBuffer.lastIndexOf('{').takeIf { it >= 0 } ?: bleRxBuffer.length
-        bleRxBuffer.delete(0, keepFrom)
+        bleRxBuffer.deleteRange(0, keepFrom)
     }
 
     return out

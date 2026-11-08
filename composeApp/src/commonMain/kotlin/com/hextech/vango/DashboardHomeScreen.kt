@@ -1,6 +1,5 @@
 package com.hextech.vango
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -400,7 +399,7 @@ fun DashboardHomeScreen(
             showSettings ||
             section != DashboardSection.Home
 
-    BackHandler(enabled = canHandleBack) {
+    PlatformBackHandler(enabled = canHandleBack) {
         when {
             phoneDrawerOpen -> phoneDrawerOpen = false
             showHexon -> {

@@ -29,5 +29,8 @@ akışı imzasızdır ve cihaza kurulabilir IPA üretmez; bunun için Apple imza
 sertifikalarının ve provisioning profile'ların Codemagic'de yapılandırılması
 gerekir.
 
+Not: iOS'taki BLE bağlantısı ve QR tarayıcı şu an yer tutucudur; bu derleme
+iOS özelliklerinin Android ile eşdeğer olduğunu göstermez.
+
 Android iş akışı depodaki sürüm değerlerini kullanır ve bu depoda bulunmayan
 harici PowerShell modülüne bağlı `syncHexnetVersion` görevini atlar.

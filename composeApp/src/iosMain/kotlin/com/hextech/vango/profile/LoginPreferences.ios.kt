@@ -79,6 +79,8 @@ actual object LoginPreferences {
     actual fun setCachedPhone(phone: String?) {
         this.phone = phone
     }
+    actual fun getCachedCaravanType(): String? = getPersistedString("cached_caravan_type")
+    actual fun setCachedCaravanType(type: String?) = setPersistedString("cached_caravan_type", type)
     actual fun getCachedRole(): String? = role
     actual fun setCachedRole(role: String?) {
         this.role = role

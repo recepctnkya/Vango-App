@@ -2,6 +2,7 @@ package com.hextech.vango
 
 import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
+import kotlin.math.PI
 import kotlin.math.sin
 
 /** Calendar season for vegetation / ground (not weather precip). */
@@ -41,7 +42,7 @@ data class WindState(
  */
 fun windDirXFromDeg(deg: Float?): Float {
     if (deg == null) return 0.20f
-    val rad = Math.toRadians(deg.toDouble())
+    val rad = deg.toDouble() * PI / 180.0
     // Eastward component of TO direction = −sin(fromDeg)
     return (-sin(rad)).toFloat().coerceIn(-1f, 1f)
 }
@@ -416,8 +417,8 @@ fun windSwayOffsetX(
     if (wind.speedNorm < 0.14f) return 0f
     val t = tFromBase.coerceIn(0f, 1f)
     val bend = t * t // root fixed, tip bends more
-    val wave = sin((timeSec * wind.gustHz * (0.88f + phase * 0.05f) + phase) * (Math.PI * 2.0).toFloat())
-    val flutter = 0.24f * sin((timeSec * wind.gustHz * 1.51f + phase * 1.41f) * (Math.PI * 2.0).toFloat())
+    val wave = sin((timeSec * wind.gustHz * (0.88f + phase * 0.05f) + phase) * (PI * 2.0).toFloat())
+    val flutter = 0.24f * sin((timeSec * wind.gustHz * 1.51f + phase * 1.41f) * (PI * 2.0).toFloat())
     val amp = scalePx * (0.006f + wind.speedNorm * 0.032f) * bend
     return wind.dirX * amp * (wave * 0.80f + flutter * 0.20f)
 }

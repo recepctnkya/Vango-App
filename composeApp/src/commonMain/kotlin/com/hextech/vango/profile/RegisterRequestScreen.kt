@@ -1,5 +1,6 @@
 package com.hextech.vango.profile
 
+import com.hextech.vango.PlatformBackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -53,7 +54,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.activity.compose.BackHandler
 import com.hextech.vango.BleGattConnectionChain
 import com.hextech.vango.currentPlatformDeviceMac
 import com.hextech.vango.getAppContext
@@ -119,7 +119,7 @@ fun RegisterRequestScreen(
     var regDeviceMacValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val regDeviceMac = regDeviceMacValue.text
     var regDeviceUid by remember { mutableStateOf("") }
-    BackHandler(enabled = phase == RegisterFlowPhase.Form) {
+    PlatformBackHandler(enabled = phase == RegisterFlowPhase.Form) {
         onBack()
     }
 

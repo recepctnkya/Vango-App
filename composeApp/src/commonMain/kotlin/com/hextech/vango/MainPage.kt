@@ -68,7 +68,6 @@ import testvango.composeapp.generated.resources.footer_save
 import testvango.composeapp.generated.resources.footer_menu
 import testvango.composeapp.generated.resources.footer_profile
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.activity.compose.BackHandler
 
 
 enum class SelectedPage {
@@ -116,7 +115,7 @@ fun PhoneLayout() {
     val hasInternalBack =
         (data.selectedTab == SelectedPage.Menu && data.settingsPage != SettingsPage.Main) ||
             data.selectedTab == SelectedPage.Profile
-    BackHandler(enabled = hasInternalBack) {
+    PlatformBackHandler(enabled = hasInternalBack) {
         when {
             data.selectedTab == SelectedPage.Menu && data.settingsPage == SettingsPage.Remote ->
                 uiState.value = data.copy(settingsPage = SettingsPage.Connection)

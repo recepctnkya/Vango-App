@@ -2,6 +2,7 @@ package com.hextech.vango.profile
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlin.concurrent.Volatile
 
 internal fun profileContentKey(profile: UserProfile): String =
     listOf(

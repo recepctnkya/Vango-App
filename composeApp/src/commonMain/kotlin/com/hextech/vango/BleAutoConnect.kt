@@ -1,6 +1,7 @@
 package com.hextech.vango
 
 import com.hextech.vango.profile.LoginPreferences
+import kotlin.concurrent.Volatile
 
 /**
  * Tek merkezi BLE otomatik bağlanma.
