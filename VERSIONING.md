@@ -36,3 +36,7 @@ kullanır.
 
 Android iş akışı depodaki sürüm değerlerini kullanır ve bu depoda bulunmayan
 harici PowerShell modülüne bağlı `syncHexnetVersion` görevini atlar.
+
+KMQTT 1.0.0, iOS Simulator için gereken OpenSSL KLIB'ini Maven yayımına dahil
+etmediğinden iOS iş akışı dosyayı sabit sürüm etiketinden indirip SHA-256
+checksum'ını doğrular.

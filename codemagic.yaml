@@ -23,6 +23,14 @@ workflows:
     scripts:
       - name: Make Gradle wrapper executable
         script: chmod +x ./gradlew
+      - name: Provide KMQTT iOS Simulator OpenSSL library
+        script: |
+          KLIB="composeApp/build/kmqtt-native/openssl-ios-simulator-arm64.klib"
+          mkdir -p "$(dirname "$KLIB")"
+          curl --fail --location --retry 3 \
+            "https://raw.githubusercontent.com/davidepianca98/KMQTT/1.0.0/kmqtt-common/src/nativeInterop/openssl-ios-simulator-arm64.klib" \
+            --output "$KLIB"
+          echo "717562a7effddc13a68da13bad2341d72604ab9e717c9fe23ec0848d1295c2d7  $KLIB" | shasum -a 256 --check
       - name: Build iOS Simulator app
         script: |
           xcodebuild \

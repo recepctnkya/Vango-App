@@ -53,6 +53,11 @@ kotlin {
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.7")
         }
+        iosSimulatorArm64Main.dependencies {
+            implementation(
+                files("build/kmqtt-native/openssl-ios-simulator-arm64.klib")
+            )
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
