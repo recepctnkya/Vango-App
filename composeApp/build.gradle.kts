@@ -163,6 +163,7 @@ fun launchMainActivityOnDevice(logger: org.gradle.api.logging.Logger) {
 
 /** VERSION.json → versionName/versionCode / HexnetAppVersion.kt (makro-mikro Sync) */
 tasks.register<Exec>("syncHexnetVersion") {
+    onlyIf { System.getProperty("os.name").lowercase().contains("windows") }
     workingDir = rootProject.projectDir
     commandLine(
         "powershell",

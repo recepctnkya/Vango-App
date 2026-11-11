@@ -9,6 +9,11 @@ Tek KMP kaynak (`VanGO-v0.91-001`); Android tablet, telefon ve iOS aynı makro/m
 | **versionName** | `0.91-001` | Android / iOS görünen sürüm |
 | **versionCode** | `91001` | Store / yükleme kodu |
 
+App Store sürüm numarası noktalı semver biçiminde olmalıdır. iOS build'i bunu
+`VERSION.json` içindeki `semver` değerinden (`0.91.1`) ve `versionCode`
+değerinden alır; iOS ayarları `iosApp/Configuration/Config.xcconfig`
+dosyasındadır.
+
 ## Dosyalar
 
 - `VERSION.json`, `changelog.json`
@@ -33,6 +38,10 @@ Not: iOS'taki BLE bağlantısı ve QR tarayıcı şu an yer tutucudur; bu derlem
 iOS özelliklerinin Android ile eşdeğer olduğunu göstermez.
 HTTP istemcisi iOS'ta platformun `NSURLSession` tabanlı Ktor Darwin motorunu
 kullanır.
+
+`ios-testflight` iş akışı, Codemagic Developer Portal entegrasyonundaki
+`Hexnet Vango` API anahtarıyla imzalı IPA'yı App Store Connect'e yükler.
+İlk yüklemeden sonra TestFlight'ta internal test kullanıcıları elle eklenir.
 
 Android iş akışı depodaki sürüm değerlerini kullanır ve bu depoda bulunmayan
 harici PowerShell modülüne bağlı `syncHexnetVersion` görevini atlar.

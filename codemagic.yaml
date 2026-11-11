@@ -53,3 +53,29 @@ workflows:
           ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" build/ios/VanGO-iOS-Simulator.zip
     artifacts:
       - build/ios/VanGO-iOS-Simulator.zip
+
+  ios-testflight:
+    name: iOS TestFlight
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: Hexnet Vango
+    environment:
+      xcode: latest
+      java: 17
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.hexnet.vango
+    scripts:
+      - name: Make Gradle wrapper executable
+        script: chmod +x ./gradlew
+      - name: Set up code signing
+        script: xcode-project use-profiles
+      - name: Build signed iOS IPA
+        script: xcode-project build-ipa --project iosApp/iosApp.xcodeproj --scheme iosApp
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
