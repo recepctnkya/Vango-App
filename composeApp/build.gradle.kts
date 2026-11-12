@@ -89,6 +89,20 @@ kotlin {
     }
 }
 
+tasks.matching {
+    it.name.startsWith("sync") && it.name.endsWith("ComposeResourcesForIos")
+}.configureEach {
+    doLast {
+        val nativeArchives = outputs.files.asFileTree.matching {
+            include("default/targets/**/included/*.a")
+        }
+        nativeArchives.forEach { archive ->
+            check(archive.delete()) { "Could not remove native archive from iOS resources: $archive" }
+            logger.lifecycle("Removed native archive from iOS resources: ${archive.name}")
+        }
+    }
+}
+
 android {
     namespace = "com.hextech.vango"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
