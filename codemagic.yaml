@@ -20,6 +20,8 @@ workflows:
     environment:
       xcode: latest
       java: 17
+      vars:
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx6g -Dfile.encoding=UTF-8" -Dorg.gradle.workers.max=1'
     scripts:
       - name: Make Gradle wrapper executable
         script: chmod +x ./gradlew
@@ -63,6 +65,8 @@ workflows:
     environment:
       xcode: latest
       java: 17
+      vars:
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx6g -Dfile.encoding=UTF-8" -Dorg.gradle.workers.max=1'
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.hexnet.vango
