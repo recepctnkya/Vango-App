@@ -34,8 +34,10 @@ akışı imzasızdır ve cihaza kurulabilir IPA üretmez; bunun için Apple imza
 sertifikalarının ve provisioning profile'ların Codemagic'de yapılandırılması
 gerekir.
 
-Not: iOS'taki BLE bağlantısı ve QR tarayıcı şu an yer tutucudur; bu derleme
-iOS özelliklerinin Android ile eşdeğer olduğunu göstermez.
+Not: iOS BLE bağlantısı Kable/CoreBluetooth kullanır; Apple gerçek BLE MAC
+adresini uygulamalara açmadığından bağlantı listesinde MAC biçimli yerel bir
+tanımlayıcı kullanılır. QR tarayıcı iOS'ta hâlâ yer tutucudur. BLE bağlantısı
+gerçek iPhone ve IO modülüyle doğrulanmalıdır; Simulator bu testi yapamaz.
 HTTP istemcisi iOS'ta platformun `NSURLSession` tabanlı Ktor Darwin motorunu
 kullanır.
 
