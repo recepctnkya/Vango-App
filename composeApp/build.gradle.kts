@@ -58,6 +58,11 @@ kotlin {
                 files("build/kmqtt-native/openssl-ios-simulator-arm64.klib")
             )
         }
+        iosArm64Main.dependencies {
+            implementation(
+                files("build/kmqtt-native/openssl-ios-arm64.klib")
+            )
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)

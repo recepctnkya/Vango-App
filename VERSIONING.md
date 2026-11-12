@@ -47,5 +47,6 @@ Android iş akışı depodaki sürüm değerlerini kullanır ve bu depoda bulunm
 harici PowerShell modülüne bağlı `syncHexnetVersion` görevini atlar.
 
 KMQTT 1.0.0, iOS Simulator için gereken OpenSSL KLIB'ini Maven yayımına dahil
-etmediğinden iOS iş akışı dosyayı sabit sürüm etiketinden indirip SHA-256
-checksum'ını doğrular.
+etmediğinden iOS iş akışları Simulator ve cihaz hedeflerinin KLIB dosyalarını
+sabit sürüm etiketinden indirip SHA-256 checksum'larını doğrular. Kotlin/Native
+derlemesi için Kotlin daemon heap'i 4 GB olarak ayarlanmıştır.
