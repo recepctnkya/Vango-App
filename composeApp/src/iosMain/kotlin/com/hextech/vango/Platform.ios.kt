@@ -14,6 +14,4 @@ private class IosVanGO : VanGO() {
 actual fun getPlatform(): Platform = IosPlatform()
 actual fun getVanGO(): VanGO = IosVanGO()
 
-internal fun createIosBluetoothManager(): BluetoothManager = IosBluetoothManager()
-
 internal fun createIosVanGO(): VanGO = IosVanGO()
