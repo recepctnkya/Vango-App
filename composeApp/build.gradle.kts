@@ -112,7 +112,7 @@ android {
         applicationId = "com.hextech.vango.v090"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 91003
+        versionCode = 91004
         versionName = "0.91-001"
     }
     packaging {

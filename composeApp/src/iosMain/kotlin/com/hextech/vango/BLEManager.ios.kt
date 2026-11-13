@@ -107,8 +107,12 @@ private class IosBluetoothManager : BluetoothManager {
                 Scanner().advertisements.collect { advertisement ->
                     val name = advertisement.name
                         ?: advertisement.peripheralName
-                        ?: return@collect
-                    if (!isSupportedBleDeviceName(name)) return@collect
+                    val hasVanGoService = advertisement.uuids.any {
+                        it.toString().equals(bleVanGoServiceUuid, ignoreCase = true)
+                    }
+                    if (!hasVanGoService && (name == null || !isSupportedBleDeviceName(name))) {
+                        return@collect
+                    }
 
                     val identifier = identifierAsMac(advertisement)
                     advertisements[identifier] = advertisement
@@ -117,7 +121,7 @@ private class IosBluetoothManager : BluetoothManager {
                     }
                     onStatusOfBle(
                         VanGoState.OnDiscoverDevice,
-                        BleDevice(name, identifier, advertisement.rssi),
+                        BleDevice(defaultBleNameForAdvertisedDevice(name), identifier, advertisement.rssi),
                     )
 
                     if (pendingIdentifier == identifier) {
