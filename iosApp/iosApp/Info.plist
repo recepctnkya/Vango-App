@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>VanGO uses Bluetooth to connect to the ESP32 IO module.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>VanGO konumunuza göre dış hava durumunu göstermek için konumunuzu kullanır.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

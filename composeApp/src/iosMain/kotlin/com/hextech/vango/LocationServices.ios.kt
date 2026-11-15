@@ -1,5 +1,7 @@
 package com.hextech.vango
 
-actual fun isLocationServicesEnabled(): Boolean = true
+import platform.CoreLocation.CLLocationManager
+
+actual fun isLocationServicesEnabled(): Boolean = CLLocationManager.locationServicesEnabled()
 
 actual fun bleScanRequiresLocationEnabled(): Boolean = false
