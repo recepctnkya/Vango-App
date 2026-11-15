@@ -356,7 +356,7 @@
     <string name="connection_last_data">Last data: %1$s</string>
     <string name="connection_view_history">View history</string>
     <string name="ble_pair_title">Pair device</string>
-    <string name="ble_pair_subtitle">Only VANGO DISPLAY and VANGO IO MODULE devices (BLE MAC) are listed.</string>
+    <string name="ble_pair_subtitle">VanGO devices appear in the matched list; all nearby BLE devices are shown below.</string>
     <string name="ble_pair_search_devices">Search for devices</string>
     <string name="ble_pair_tap_search">Tap Search for devices to scan nearby units.</string>
     <string name="ble_pair_no_devices_after_scan">No VANGO DISPLAY or IO MODULE found nearby. Try again.</string>
@@ -372,6 +372,10 @@
     <string name="ble_pair_pairing_hint">Make sure your device is in pairing mode.</string>
     <string name="ble_pair_nearby_title">Nearby devices</string>
     <string name="ble_pair_discovered_title">Matched devices</string>
+    <string name="ble_pair_all_nearby_title">All nearby BLE devices</string>
+    <string name="ble_pair_no_ble_devices">No BLE devices found yet.</string>
+    <string name="ble_pair_unidentified_ble_device">Unnamed BLE device</string>
+    <string name="ble_pair_ios_identifier_note">On iPhone, a local device identifier is shown instead of the MAC address for privacy.</string>
     <string name="ble_pair_added_title">Added devices</string>
     <string name="ble_pair_added_connect_hint">If the device is nearby, it also appears in the matched list while scanning.</string>
     <string name="ble_pair_remove_device">Remove</string>

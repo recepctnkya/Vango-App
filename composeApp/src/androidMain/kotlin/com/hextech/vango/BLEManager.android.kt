@@ -145,6 +145,7 @@ class AndroidBLE(adapter: BluetoothAdapter?): BluetoothManager, BluetoothGattCal
     private var vanGoBleDevice: BluetoothDevice? = null
     private var mtuValue = 20
     private var discoveredDevices: ArrayList<BluetoothDevice> = java.util.ArrayList()
+    private val nearbyBleDevices = mutableMapOf<String, BleDevice>()
     private val mainHandler = Handler(Looper.getMainLooper())
     private var discoverDoneRunnable: Runnable? = null
     private var leScanEndAtMs: Long = 0L
@@ -185,11 +186,23 @@ class AndroidBLE(adapter: BluetoothAdapter?): BluetoothManager, BluetoothGattCal
         }
         val nameFromAdv = result.scanRecord?.deviceName
         val resolvedName = nameFromDevice ?: nameFromAdv
+        rememberNearbyBleDevice(device, resolvedName, result.rssi)
         when {
             resolvedName != null && isSupportedBleDeviceName(resolvedName) ->
                 tryAddDiscoveredDevice(device, resolvedName, result.rssi)
             hasVanGoServiceInAdvertisement(result.scanRecord) ->
                 tryAddDiscoveredDevice(device, bleIoModuleName, result.rssi)
+        }
+    }
+
+    private fun rememberNearbyBleDevice(device: BluetoothDevice, name: String?, rssi: Int) {
+        val address = device.address?.trim()?.takeIf { it.isNotEmpty() } ?: return
+        synchronized(nearbyBleDevices) {
+            nearbyBleDevices[address.uppercase()] = BleDevice(
+                name = name?.trim().orEmpty(),
+                mac = address,
+                rssi = rssi,
+            )
         }
     }
 
@@ -382,6 +395,11 @@ class AndroidBLE(adapter: BluetoothAdapter?): BluetoothManager, BluetoothGattCal
         }
     }
 
+    override fun nearbyBleDevicesSnapshot(): List<BleDevice> =
+        synchronized(nearbyBleDevices) {
+            nearbyBleDevices.values.sortedByDescending { it.rssi ?: Int.MIN_VALUE }
+        }
+
     override fun connect(index: Int): Boolean {
         if (!hasBluetoothConnectPermission()) {
             println("Missing BLUETOOTH_CONNECT permission for connection")
@@ -520,6 +538,9 @@ class AndroidBLE(adapter: BluetoothAdapter?): BluetoothManager, BluetoothGattCal
         synchronized(discoveredDevices) {
             discoveredDevices.clear()
             println("🔄 Cleared discoveredDevices list for new discovery")
+        }
+        synchronized(nearbyBleDevices) {
+            nearbyBleDevices.clear()
         }
         
         if(bluetoothAdapter.isEnabled) {

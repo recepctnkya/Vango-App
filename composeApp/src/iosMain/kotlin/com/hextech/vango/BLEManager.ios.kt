@@ -30,6 +30,7 @@ private val weatherWriteCharacteristic = characteristicOf(serviceUUID, IOS_BLE_W
 private class IosBluetoothManager : BluetoothManager {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val advertisements = mutableMapOf<String, Advertisement>()
+    private val nearbyBleDevices = mutableMapOf<String, BleDevice>()
     private val discoveredIdentifiers = mutableListOf<String>()
     private val writeMutex = Mutex()
 
@@ -50,6 +51,9 @@ private class IosBluetoothManager : BluetoothManager {
     override fun isConnected() = connected
 
     override fun connectedDeviceMac(): String? = activeIdentifier
+
+    override fun nearbyBleDevicesSnapshot(): List<BleDevice> =
+        nearbyBleDevices.values.sortedByDescending { it.rssi ?: Int.MIN_VALUE }
 
     override fun connect(index: Int): Boolean {
         val identifier = discoveredIdentifiers.getOrNull(index) ?: return false
@@ -101,12 +105,19 @@ private class IosBluetoothManager : BluetoothManager {
         if (connected || scanJob?.isActive == true) return true
 
         advertisements.clear()
+        nearbyBleDevices.clear()
         discoveredIdentifiers.clear()
         scanJob = scope.launch {
             try {
                 Scanner().advertisements.collect { advertisement ->
                     val name = advertisement.name
                         ?: advertisement.peripheralName
+                    val identifier = identifierAsMac(advertisement)
+                    nearbyBleDevices[identifier] = BleDevice(
+                        name = name.orEmpty(),
+                        mac = identifier,
+                        rssi = advertisement.rssi,
+                    )
                     val hasVanGoService = advertisement.uuids.any {
                         it.toString().isVanGoServiceUuid()
                     }
@@ -114,7 +125,6 @@ private class IosBluetoothManager : BluetoothManager {
                         return@collect
                     }
 
-                    val identifier = identifierAsMac(advertisement)
                     advertisements[identifier] = advertisement
                     if (identifier !in discoveredIdentifiers) {
                         discoveredIdentifiers += identifier

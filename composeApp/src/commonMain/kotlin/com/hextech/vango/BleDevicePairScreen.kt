@@ -86,6 +86,10 @@ import testvango.composeapp.generated.resources.ble_pair_manual_title
 import testvango.composeapp.generated.resources.ble_pair_added_connect_hint
 import testvango.composeapp.generated.resources.ble_pair_added_title
 import testvango.composeapp.generated.resources.ble_pair_discovered_title
+import testvango.composeapp.generated.resources.ble_pair_all_nearby_title
+import testvango.composeapp.generated.resources.ble_pair_ios_identifier_note
+import testvango.composeapp.generated.resources.ble_pair_no_ble_devices
+import testvango.composeapp.generated.resources.ble_pair_unidentified_ble_device
 import testvango.composeapp.generated.resources.ble_pair_open_settings
 import testvango.composeapp.generated.resources.ble_pair_location_warning
 import testvango.composeapp.generated.resources.ble_pair_location_warning_body
@@ -208,6 +212,7 @@ fun BleDevicePairContent(
     val bleLinked = getAppContext().vanGO.isConnected() && isConnected
     val connectedMac = currentBleAdapterMac()
     var nearbyDevices by remember { mutableStateOf<List<BleDevice>>(emptyList()) }
+    var allNearbyBleDevices by remember { mutableStateOf<List<BleDevice>>(emptyList()) }
     var addedDevices by remember { mutableStateOf<List<BleDevice>>(emptyList()) }
     var scanComplete by remember { mutableStateOf(false) }
     var pairScanActive by remember { mutableStateOf(false) }
@@ -304,6 +309,16 @@ fun BleDevicePairContent(
             syncNearbyFromGlobal()
             stopPairScan()
         }
+    }
+
+    LaunchedEffect(scanGeneration, pairScanActive) {
+        if (scanGeneration == 0) return@LaunchedEffect
+        val generation = scanGeneration
+        while (generation == scanGeneration && pairScanActive) {
+            allNearbyBleDevices = getAppContext().ble().nearbyBleDevicesSnapshot()
+            delay(400)
+        }
+        allNearbyBleDevices = getAppContext().ble().nearbyBleDevicesSnapshot()
     }
 
     LaunchedEffect(connectionState, deviceCount, pairScanActive) {
@@ -466,6 +481,13 @@ fun BleDevicePairContent(
             onConnect = { connectToMac(it) },
             onDisconnect = { disconnectConnectedDevice() },
         )
+        if (scanEverStarted) {
+            PairNearbyBleDiagnostics(
+                colors = colors,
+                devices = allNearbyBleDevices,
+                isScanning = isScanning,
+            )
+        }
         if (addedDevices.isNotEmpty()) {
             PairDevicesListSection(
                 colors = colors,
@@ -818,6 +840,92 @@ private fun PairDevicesListSection(
                     onDisconnect = { onDisconnect(device.mac) },
                     onRemove = { onRemove(device.mac) },
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PairNearbyBleDiagnostics(
+    colors: PairUiColors,
+    devices: List<BleDevice>,
+    isScanning: Boolean,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                stringResource(Res.string.ble_pair_all_nearby_title),
+                color = colors.textPrimary,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(devices.size.toString(), color = colors.textSecondary, fontSize = 13.sp)
+        }
+        Text(
+            stringResource(Res.string.ble_pair_ios_identifier_note),
+            color = colors.textSecondary,
+            fontSize = 11.sp,
+        )
+        if (devices.isEmpty()) {
+            Text(
+                stringResource(
+                    if (isScanning) Res.string.ble_pair_scanning_subtitle
+                    else Res.string.ble_pair_no_ble_devices,
+                ),
+                color = colors.textSecondary,
+                fontSize = 13.sp,
+            )
+        } else {
+            devices.take(20).forEach { device ->
+                Card(
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = 1.dp,
+                    backgroundColor = colors.cardBg,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, colors.border, RoundedCornerShape(12.dp)),
+                ) {
+                    Row(
+                        modifier = Modifier.padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            Icons.Filled.Bluetooth,
+                            contentDescription = null,
+                            tint = colors.accent,
+                            modifier = Modifier.size(20.dp),
+                        )
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(horizontal = 10.dp),
+                        ) {
+                            Text(
+                                device.name.ifBlank {
+                                    stringResource(Res.string.ble_pair_unidentified_ble_device)
+                                },
+                                color = colors.textPrimary,
+                                fontWeight = FontWeight.Medium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                            Text(
+                                stringResource(Res.string.ble_pair_device_id, device.mac),
+                                color = colors.textSecondary,
+                                fontSize = 11.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                        device.rssi?.let {
+                            Text("$it dBm", color = colors.textSecondary, fontSize = 11.sp)
+                        }
+                    }
+                }
             }
         }
     }

@@ -356,7 +356,7 @@
     <string name="connection_last_data">Son veri: %1$s</string>
     <string name="connection_view_history">Geçmişi görüntüle</string>
     <string name="ble_pair_title">Cihaz Eşleştir</string>
-    <string name="ble_pair_subtitle">Yalnızca VANGO DISPLAY ve VANGO IO MODULE cihazları (BLE MAC) listelenir.</string>
+    <string name="ble_pair_subtitle">VanGO cihazları eşleşen listede, çevredeki tüm BLE cihazları aşağıda görünür.</string>
     <string name="ble_pair_search_devices">Cihazları ara</string>
     <string name="ble_pair_tap_search">Yakındaki cihazları bulmak için Cihazları ara'ya dokunun.</string>
     <string name="ble_pair_no_devices_after_scan">Yakında VANGO DISPLAY veya IO MODULE bulunamadı. Tekrar deneyin.</string>
@@ -372,6 +372,10 @@
     <string name="ble_pair_pairing_hint">Lütfen cihazınızı eşleştirme modunda olduğundan emin olun.</string>
     <string name="ble_pair_nearby_title">Yakındaki Cihazlar</string>
     <string name="ble_pair_discovered_title">Eşleşen Cihazlar</string>
+    <string name="ble_pair_all_nearby_title">Yakındaki tüm BLE cihazları</string>
+    <string name="ble_pair_no_ble_devices">Henüz BLE cihazı bulunamadı.</string>
+    <string name="ble_pair_unidentified_ble_device">İsimsiz BLE cihazı</string>
+    <string name="ble_pair_ios_identifier_note">iPhone’da gizlilik nedeniyle MAC adresi yerine yerel cihaz kimliği gösterilir.</string>
     <string name="ble_pair_added_title">Eklenen Cihazlar</string>
     <string name="ble_pair_added_connect_hint">Cihaz yakındaysa tarama sırasında eşleşen listede de görünür.</string>
     <string name="ble_pair_remove_device">Kaldır</string>

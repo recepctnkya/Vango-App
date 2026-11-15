@@ -41,6 +41,7 @@ interface BluetoothManager {
      * iOS veya bağlantı yoksa null dönebilir.
      */
     fun connectedDeviceMac(): String? = null
+    fun nearbyBleDevicesSnapshot(): List<BleDevice> = emptyList()
     fun connect(index: Int): Boolean
     /** MAC ile bağlanır; manuel eklenen veya taramada görünmeyen cihazlar için kullanılır. */
     fun connectByMac(mac: String): Boolean = false
