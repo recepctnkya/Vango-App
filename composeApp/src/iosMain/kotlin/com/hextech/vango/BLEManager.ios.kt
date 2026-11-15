@@ -108,7 +108,7 @@ private class IosBluetoothManager : BluetoothManager {
                     val name = advertisement.name
                         ?: advertisement.peripheralName
                     val hasVanGoService = advertisement.uuids.any {
-                        it.toString().equals(bleVanGoServiceUuid, ignoreCase = true)
+                        it.toString().isVanGoServiceUuid()
                     }
                     if (!hasVanGoService && (name == null || !isSupportedBleDeviceName(name))) {
                         return@collect
@@ -324,6 +324,14 @@ private fun String.toIosAsciiSafe(): String {
         '°' to ' ',
     )
     return map { char -> replacements[char] ?: if (char.code < 128) char else '?' }.joinToString("")
+}
+
+private fun String.isVanGoServiceUuid(): Boolean {
+    val uuidHex = uppercase().filter { it in '0'..'9' || it in 'A'..'F' }
+    val serviceUuidHex = bleVanGoServiceUuid
+        .uppercase()
+        .filter { it in '0'..'9' || it in 'A'..'F' }
+    return uuidHex == serviceUuidHex || uuidHex == "ABF0" || uuidHex == "0000ABF0"
 }
 
 internal fun createIosBluetoothManager(): BluetoothManager = IosBluetoothManager()
