@@ -15,9 +15,8 @@ import platform.CoreLocation.CLLocationManagerDelegateProtocol
 import platform.CoreLocation.kCLAuthorizationStatusAuthorizedAlways
 import platform.CoreLocation.kCLAuthorizationStatusAuthorizedWhenInUse
 import platform.CoreLocation.kCLAuthorizationStatusNotDetermined
+import platform.Foundation.*
 import kotlinx.cinterop.useContents
-import platform.Foundation.NSError
-import platform.darwin.NSObject
 import kotlin.coroutines.resume
 
 private object IosLocationProvider : NSObject(), CLLocationManagerDelegateProtocol {
