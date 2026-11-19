@@ -147,7 +147,7 @@ import com.hextech.vango.profile.rememberProfileViewModel
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.unit.sp
 /** Uygulama surumu — composeApp/build.gradle.kts versionName ile senkron tutun. */
-const val VANGO_APP_VERSION_NAME = "0.90-001"
+const val VANGO_APP_VERSION_NAME = "0.91-002"
 
 enum class SettingsPage {
     Main,

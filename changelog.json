@@ -1,5 +1,13 @@
 [
     {
+        "version": "v0.91-0002",
+        "module": "platform",
+        "date": "2026-11-19",
+        "changes": [
+            "Yayin icin surum ve build numarasi artirildi (0.91.2 / 91009)"
+        ]
+    },
+    {
         "version":  "v0.91-0001",
         "module":  "platform",
         "date":  "2026-11-08",
