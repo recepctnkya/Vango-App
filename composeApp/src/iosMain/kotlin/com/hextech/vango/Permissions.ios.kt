@@ -1,5 +1,3 @@
-@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
-
 package com.hextech.vango
 
 import kotlinx.coroutines.CancellableContinuation
@@ -15,8 +13,8 @@ import platform.CoreLocation.CLLocationManagerDelegateProtocol
 import platform.CoreLocation.kCLAuthorizationStatusAuthorizedAlways
 import platform.CoreLocation.kCLAuthorizationStatusAuthorizedWhenInUse
 import platform.CoreLocation.kCLAuthorizationStatusNotDetermined
-import platform.Foundation.*
-import kotlinx.cinterop.useContents
+import platform.Foundation.NSError
+import platform.Foundation.NSObject
 import kotlin.coroutines.resume
 
 private object IosLocationProvider : NSObject(), CLLocationManagerDelegateProtocol {
@@ -68,10 +66,7 @@ private object IosLocationProvider : NSObject(), CLLocationManagerDelegateProtoc
 
     override fun locationManager(manager: CLLocationManager, didUpdateLocations: List<*>) {
         val location = didUpdateLocations.lastOrNull() as? CLLocation
-        val coordinates = location?.coordinate?.useContents {
-            latitude to longitude
-        }
-        finish(coordinates)
+        finish(location?.let { it.coordinate.latitude to it.coordinate.longitude })
     }
 
     override fun locationManager(manager: CLLocationManager, didFailWithError: NSError) {

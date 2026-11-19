@@ -30,8 +30,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.KeyboardDoubleArrowDown
-import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.Remove
@@ -704,16 +702,27 @@ private fun MotorDirControl(
                 ),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(
-                imageVector = if (up) {
-                    Icons.Filled.KeyboardDoubleArrowUp
-                } else {
-                    Icons.Filled.KeyboardDoubleArrowDown
-                },
-                contentDescription = null,
-                tint = arrowTint,
-                modifier = Modifier.size(34.dp),
-            )
+            // Double chevron (mockup)
+            Canvas(modifier = Modifier.size(34.dp)) {
+                val stroke = Stroke(width = 3.4.dp.toPx(), cap = StrokeCap.Round)
+                val w = size.width
+                val h = size.height
+                fun chevron(yOffset: Float) {
+                    val path = Path()
+                    if (up) {
+                        path.moveTo(w * 0.18f, h * (0.58f + yOffset))
+                        path.lineTo(w * 0.50f, h * (0.28f + yOffset))
+                        path.lineTo(w * 0.82f, h * (0.58f + yOffset))
+                    } else {
+                        path.moveTo(w * 0.18f, h * (0.42f + yOffset))
+                        path.lineTo(w * 0.50f, h * (0.72f + yOffset))
+                        path.lineTo(w * 0.82f, h * (0.42f + yOffset))
+                    }
+                    drawPath(path = path, color = arrowTint, style = stroke)
+                }
+                chevron(-0.12f)
+                chevron(0.12f)
+            }
         }
         Text(
             value,
