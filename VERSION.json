@@ -1,24 +1,24 @@
 {
     "product":  "vango-app",
     "name":  "VanGO Tablet / Telefon",
-    "line":  "v0.91-002",
+    "line":  "v0.91-003",
     "makro":  "v0.91",
-    "mikro":  "v0.91-0002",
-    "semver":  "0.91.2",
-    "versionName":  "0.91-002",
-    "versionCode":  91009,
+    "mikro":  "v0.91-0003",
+    "semver":  "0.91.3",
+    "versionName":  "0.91-003",
+    "versionCode":  91010,
     "build_date":  "2026-11-19",
-    "build_name":  "VanGO-v0.91-002",
+    "build_name":  "VanGO-v0.91-003",
     "targets":  {
-                    "android_tablet":  "v0.91-0002",
-                    "android_phone":  "v0.91-0002",
-                    "ios":  "v0.91-0002"
+                    "android_tablet":  "v0.91-0003",
+                    "android_phone":  "v0.91-0003",
+                    "ios":  "v0.91-0003"
                 },
     "modules":  {
-                    "ble":  "v0.91-0002",
-                    "mqtt":  "v0.91-0002",
-                    "ui":  "v0.91-0002",
-                    "panel":  "v0.91-0002"
+                    "ble":  "v0.91-0003",
+                    "mqtt":  "v0.91-0003",
+                    "ui":  "v0.91-0003",
+                    "panel":  "v0.91-0003"
                 },
-    "notes":  "Yayin icin benzersiz surum numarasi; build 91009"
+    "notes":  "iOS CoreLocation derleme duzeltmesi; build 91010"
 }

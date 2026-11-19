@@ -1,5 +1,13 @@
 [
     {
+        "version": "v0.91-0003",
+        "module": "platform",
+        "date": "2026-11-19",
+        "changes": [
+            "iOS CoreLocation derleme duzeltmesi; yayin surumu 0.91.3 (build 91010)"
+        ]
+    },
+    {
         "version": "v0.91-0002",
         "module": "platform",
         "date": "2026-11-19",
